@@ -175,11 +175,11 @@
     <p>Secure access for clinic staff only</p>
     <div class="form-group">
       <label>Username</label>
-      <input type="text" id="loginUser" placeholder="Enter username" value="admin">
+      <input type="text" id="loginUser" placeholder="Enter username" value="">
     </div>
     <div class="form-group">
       <label>Password</label>
-      <input type="password" id="loginPass" placeholder="Enter password" value="TIME9@" onkeydown="if(event.key==='Enter')doLogin()">
+      <input type="password" id="loginPass" placeholder="Enter password" value="" onkeydown="if(event.key==='Enter')doLogin()">
     </div>
     <button class="login-btn" onclick="doLogin()">🔓 Login to Dashboard</button>
     <div class="login-err" id="loginErr">❌ Invalid username or password</div>
