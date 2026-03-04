@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel – Radiant Glow Clinic</title>
+<style>
+  :root {
+    --pink: #e8a0b4;
+    --pink-light: #fce9f0;
+    --pink-deep: #c9607e;
+    --gold: #c9a84c;
+    --gold-light: #f5e9c8;
+    --dark: #1a1a2e;
+    --grey: #6b7280;
+    --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI',sans-serif; color:var(--dark); background:#f0f2f8; }
+
+  /* LOGIN */
+  #loginScreen {
+    min-height:100vh; background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);
+    display:flex; align-items:center; justify-content:center; padding:20px;
+  }
+  .login-box {
+    background:#fff; border-radius:24px; padding:48px 40px;
+    width:100%; max-width:420px; text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,0.35);
+  }
+  .login-logo { font-size:3rem; margin-bottom:8px; }
+  .login-badge { display:inline-block; background:var(--gold-light); color:var(--gold); font-size:0.7rem; font-weight:700; padding:4px 14px; border-radius:50px; margin-bottom:16px; letter-spacing:2px; text-transform:uppercase; }
+  .login-box h2 { font-size:1.5rem; font-weight:800; color:var(--dark); margin-bottom:4px; }
+  .login-box p { color:var(--grey); font-size:0.85rem; margin-bottom:28px; }
+  .form-group { margin-bottom:16px; text-align:left; }
+  .form-group label { display:block; font-size:0.82rem; font-weight:600; color:var(--dark); margin-bottom:6px; }
+  .form-group input { width:100%; padding:12px 16px; border:1.5px solid #e5e7eb; border-radius:12px; font-size:0.95rem; font-family:inherit; outline:none; transition:.2s; background:#fafafa; }
+  .form-group input:focus { border-color:var(--pink); background:#fff; box-shadow:0 0 0 3px rgba(232,160,180,0.15); }
+  .login-btn { width:100%; padding:14px; background:linear-gradient(135deg,var(--pink-deep),var(--gold)); color:#fff; border:none; border-radius:12px; font-size:1rem; font-weight:700; cursor:pointer; margin-top:8px; transition:opacity .2s,transform .2s; }
+  .login-btn:hover { opacity:0.9; transform:translateY(-1px); }
+  .login-hint { font-size:0.75rem; color:#aaa; margin-top:16px; }
+  .login-err { background:#fee2e2; color:#dc2626; border-radius:8px; padding:10px 14px; font-size:0.83rem; margin-top:12px; display:none; }
+
+  /* DASHBOARD */
+  #dashboard { display:none; min-height:100vh; }
+
+  /* SIDEBAR */
+  .layout { display:flex; min-height:100vh; }
+  .sidebar {
+    width:240px; background:linear-gradient(180deg,#1a1a2e 0%,#16213e 100%);
+    padding:0; display:flex; flex-direction:column; position:fixed; top:0; bottom:0; left:0; z-index:100;
+    transition:transform .3s;
+  }
+  .sidebar-brand { padding:24px 20px; border-bottom:1px solid rgba(255,255,255,0.08); }
+  .sidebar-brand .brand-name { font-size:1rem; font-weight:800; color:#fff; }
+  .sidebar-brand .brand-name span { background:linear-gradient(135deg,var(--pink),var(--gold)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .sidebar-brand p { font-size:0.72rem; color:rgba(255,255,255,0.4); margin-top:2px; letter-spacing:1px; text-transform:uppercase; }
+  .sidebar-nav { padding:16px 12px; flex:1; overflow-y:auto; }
+  .nav-section-title { font-size:0.65rem; font-weight:600; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:1.5px; padding:8px 8px 6px; margin-top:8px; }
+  .sidebar-link {
+    display:flex; align-items:center; gap:10px; padding:11px 12px; border-radius:10px;
+    color:rgba(255,255,255,0.6); font-size:0.875rem; font-weight:500; cursor:pointer;
+    transition:.2s; margin-bottom:2px; border:none; background:transparent; width:100%; text-align:left;
+  }
+  .sidebar-link:hover { background:rgba(255,255,255,0.08); color:#fff; }
+  .sidebar-link.active { background:linear-gradient(135deg,rgba(201,96,126,0.3),rgba(201,168,76,0.2)); color:#fff; }
+  .sidebar-link .icon { font-size:1rem; width:20px; text-align:center; }
+  .sidebar-footer { padding:16px 12px; border-top:1px solid rgba(255,255,255,0.08); }
+  .logout-btn { display:flex; align-items:center; gap:10px; padding:11px 12px; border-radius:10px; color:rgba(255,255,255,0.5); font-size:0.875rem; cursor:pointer; border:none; background:transparent; width:100%; transition:.2s; }
+  .logout-btn:hover { background:rgba(255,100,100,0.15); color:#ff6b6b; }
+
+  /* MAIN CONTENT */
+  .main { margin-left:240px; flex:1; display:flex; flex-direction:column; }
+  .topbar {
+    background:#fff; padding:0 28px; height:64px; display:flex; align-items:center;
+    justify-content:space-between; box-shadow:0 1px 0 #e5e7eb; position:sticky; top:0; z-index:50;
+  }
+  .topbar-title { font-size:1.1rem; font-weight:700; color:var(--dark); }
+  .topbar-right { display:flex; align-items:center; gap:16px; }
+  .admin-badge-pill { background:var(--gold-light); color:var(--gold); font-size:0.75rem; font-weight:600; padding:4px 12px; border-radius:50px; }
+  .hamburger-top { display:none; flex-direction:column; gap:4px; cursor:pointer; background:none; border:none; }
+  .hamburger-top span { width:22px; height:2px; background:var(--dark); border-radius:2px; }
+  .content { padding:28px; flex:1; }
+
+  /* SECTIONS */
+  .section { display:none; }
+  .section.active { display:block; }
+
+  /* STATS GRID */
+  .stats-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:16px; margin-bottom:28px; }
+  .stat-card { background:#fff; border-radius:16px; padding:22px 20px; box-shadow:var(--shadow); border-left:4px solid transparent; }
+  .stat-card.pink { border-color:var(--pink-deep); }
+  .stat-card.gold { border-color:var(--gold); }
+  .stat-card.green { border-color:#10b981; }
+  .stat-card.blue { border-color:#3b82f6; }
+  .stat-card .num { font-size:2rem; font-weight:800; }
+  .stat-card.pink .num { color:var(--pink-deep); }
+  .stat-card.gold .num { color:var(--gold); }
+  .stat-card.green .num { color:#10b981; }
+  .stat-card.blue .num { color:#3b82f6; }
+  .stat-card .label { font-size:0.78rem; color:var(--grey); margin-top:4px; }
+  .stat-card .sub { font-size:0.72rem; color:#10b981; margin-top:6px; }
+
+  /* CARDS */
+  .card { background:#fff; border-radius:16px; padding:24px; box-shadow:var(--shadow); margin-bottom:24px; }
+  .card-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:gap; }
+  .card-header h3 { font-size:1rem; font-weight:700; color:var(--dark); }
+  .card-actions { display:flex; gap:8px; flex-wrap:wrap; }
+  .btn-export { background:var(--gold-light); color:var(--gold); border:none; padding:8px 16px; border-radius:8px; font-size:0.8rem; font-weight:600; cursor:pointer; transition:.2s; }
+  .btn-export:hover { background:var(--gold); color:#fff; }
+  .btn-add { background:linear-gradient(135deg,var(--pink-deep),var(--gold)); color:#fff; border:none; padding:8px 16px; border-radius:8px; font-size:0.8rem; font-weight:600; cursor:pointer; }
+
+  /* TABLE */
+  .table-wrap { overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; min-width:560px; }
+  th { text-align:left; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.5px; color:var(--grey); padding:10px 14px; border-bottom:2px solid #f3f4f6; font-weight:600; white-space:nowrap; }
+  td { padding:13px 14px; border-bottom:1px solid #f9fafb; font-size:0.85rem; color:var(--dark); vertical-align:middle; }
+  tr:last-child td { border-bottom:none; }
+  tr:hover td { background:#fafafa; }
+
+  /* BADGES */
+  .badge { display:inline-block; padding:3px 10px; border-radius:50px; font-size:0.72rem; font-weight:600; }
+  .badge-pending { background:#fef3c7; color:#92400e; }
+  .badge-confirmed { background:#d1fae5; color:#065f46; }
+  .badge-done { background:#dbeafe; color:#1e40af; }
+  .badge-reschedule { background:#ede9fe; color:#5b21b6; }
+
+  /* ACTION BUTTONS */
+  .actions { display:flex; gap:5px; flex-wrap:wrap; }
+  .btn-sm { padding:5px 10px; border-radius:6px; font-size:0.72rem; font-weight:600; border:none; cursor:pointer; transition:.15s; white-space:nowrap; }
+  .btn-confirm { background:#d1fae5; color:#065f46; } .btn-confirm:hover { background:#6ee7b7; }
+  .btn-reschedule { background:#fef3c7; color:#92400e; } .btn-reschedule:hover { background:#fcd34d; }
+  .btn-done { background:#dbeafe; color:#1e40af; } .btn-done:hover { background:#93c5fd; }
+  .btn-delete { background:#fee2e2; color:#dc2626; } .btn-delete:hover { background:#fca5a5; }
+
+  /* SERVICE MANAGEMENT */
+  .service-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; }
+  .service-edit-card { border:1.5px solid #e5e7eb; border-radius:14px; padding:18px; transition:.2s; }
+  .service-edit-card:hover { border-color:var(--pink); }
+  .service-edit-card h4 { font-size:0.9rem; font-weight:700; margin-bottom:12px; color:var(--dark); }
+  .service-edit-card input { width:100%; padding:9px 12px; border:1px solid #e5e7eb; border-radius:8px; font-size:0.84rem; margin-bottom:8px; font-family:inherit; outline:none; transition:.2s; }
+  .service-edit-card input:focus { border-color:var(--pink); }
+  .save-btn { background:linear-gradient(135deg,var(--pink-deep),var(--gold)); color:#fff; border:none; padding:8px 18px; border-radius:8px; font-size:0.8rem; font-weight:600; cursor:pointer; }
+  .add-service-card { border:2px dashed var(--pink); border-radius:14px; padding:32px; cursor:pointer; color:var(--pink-deep); font-weight:600; font-size:0.9rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; transition:.2s; }
+  .add-service-card:hover { background:var(--pink-light); }
+
+  /* TOAST */
+  .toast { position:fixed; bottom:24px; right:24px; z-index:9999; background:linear-gradient(135deg,var(--pink-deep),var(--gold)); color:#fff; padding:14px 22px; border-radius:12px; font-size:0.88rem; font-weight:600; box-shadow:0 8px 32px rgba(0,0,0,0.2); transform:translateY(80px); opacity:0; transition:.3s; max-width:300px; }
+  .toast.show { transform:translateY(0); opacity:1; }
+
+  /* EMPTY STATE */
+  .empty-state { text-align:center; padding:48px 20px; color:var(--grey); }
+  .empty-state .icon { font-size:3rem; margin-bottom:12px; }
+  .empty-state p { font-size:0.9rem; }
+
+  /* MOBILE */
+  @media(max-width:768px){
+    .sidebar { transform:translateX(-100%); }
+    .sidebar.open { transform:translateX(0); }
+    .main { margin-left:0; }
+    .hamburger-top { display:flex; }
+    .content { padding:16px; }
+    .stats-grid { grid-template-columns:1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== LOGIN SCREEN ========== -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">🔐</div>
+    <div class="login-badge">Admin Portal</div>
+    <h2>Radiant Glow Clinic</h2>
+    <p>Secure access for clinic staff only</p>
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" id="loginUser" placeholder="Enter username" value="admin">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="loginPass" placeholder="Enter password" value="radiant2025" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="login-btn" onclick="doLogin()">🔓 Login to Dashboard</button>
+    <div class="login-err" id="loginErr">❌ Invalid username or password</div>
+    <p class="login-hint">Default: admin / radiant2025</p>
+  </div>
+</div>
+
+<!-- ========== DASHBOARD ========== -->
+<div id="dashboard">
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-name">Radiant <span>Glow</span></div>
+        <p>Admin Dashboard</p>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Main</div>
+        <button class="sidebar-link active" onclick="showSection('overview',this)"><span class="icon">📊</span> Overview</button>
+        <button class="sidebar-link" onclick="showSection('appointments',this)"><span class="icon">📅</span> Appointments</button>
+        <button class="sidebar-link" onclick="showSection('leads',this)"><span class="icon">👥</span> Leads & Inquiries</button>
+        <div class="nav-section-title">Management</div>
+        <button class="sidebar-link" onclick="showSection('services',this)"><span class="icon">💆</span> Services & Pricing</button>
+        <button class="sidebar-link" onclick="showSection('gallery',this)"><span class="icon">🖼️</span> Gallery Manager</button>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="logout-btn" onclick="doLogout()"><span>🚪</span> Logout</button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="main">
+      <header class="topbar">
+        <div style="display:flex;align-items:center;gap:12px">
+          <button class="hamburger-top" onclick="document.getElementById('sidebar').classList.toggle('open')"><span></span><span></span><span></span></button>
+          <span class="topbar-title" id="topbarTitle">Overview</span>
+        </div>
+        <div class="topbar-right">
+          <span id="topbarDate" style="font-size:0.82rem;color:var(--grey)"></span>
+          <span class="admin-badge-pill">Admin</span>
+        </div>
+      </header>
+
+      <div class="content">
+
+        <!-- OVERVIEW -->
+        <div class="section active" id="sec-overview">
+          <div class="stats-grid">
+            <div class="stat-card pink"><div class="num" id="stat-today">0</div><div class="label">Today's Appointments</div><div class="sub">↑ Updated live</div></div>
+            <div class="stat-card gold"><div class="num" id="stat-pending">0</div><div class="label">Pending Confirmations</div></div>
+            <div class="stat-card green"><div class="num" id="stat-total">0</div><div class="label">Total Bookings</div></div>
+            <div class="stat-card blue"><div class="num">₹2.4L</div><div class="label">Monthly Revenue</div></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3>📅 Today's Appointments</h3></div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Time</th><th>Client</th><th>Service</th><th>Phone</th><th>Status</th><th>Actions</th></tr></thead>
+                <tbody id="todayTable"><tr><td colspan="6"><div class="empty-state"><div class="icon">📋</div><p>No appointments yet today. Bookings from website will appear here.</p></div></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- APPOINTMENTS -->
+        <div class="section" id="sec-appointments">
+          <div class="card">
+            <div class="card-header">
+              <h3>📅 All Appointments</h3>
+              <div class="card-actions">
+                <button class="btn-export" onclick="exportAppts()">⬇ Export CSV</button>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Date</th><th>Time</th><th>Client</th><th>Phone</th><th>Service</th><th>Notes</th><th>Status</th><th>Actions</th></tr></thead>
+                <tbody id="apptTable"><tr><td colspan="8"><div class="empty-state"><div class="icon">📅</div><p>No bookings yet. Appointments submitted via website will appear here.</p></div></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEADS -->
+        <div class="section" id="sec-leads">
+          <div class="card">
+            <div class="card-header">
+              <h3>👥 Leads & Customer Inquiries</h3>
+              <div class="card-actions">
+                <button class="btn-export" onclick="exportLeads()">⬇ Export CSV</button>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Date</th><th>Name</th><th>Phone</th><th>Email</th><th>Service</th><th>Notes</th><th>Action</th></tr></thead>
+                <tbody id="leadsTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- SERVICES -->
+        <div class="section" id="sec-services">
+          <div class="card">
+            <div class="card-header"><h3>💆 Services & Pricing</h3><button class="btn-add" onclick="addServiceCard()">➕ Add Service</button></div>
+            <div class="service-grid" id="serviceGrid">
+              <div class="service-edit-card"><h4>💉 Botox</h4><input type="text" value="Wrinkle reduction injection treatment"><input type="text" value="₹8,000 onwards" placeholder="Price"><button class="save-btn" onclick="saveService(this)">Save ✓</button></div>
+              <div class="service-edit-card"><h4>🌸 Dermal Fillers</h4><input type="text" value="Lip & face volume augmentation"><input type="text" value="₹12,000 onwards" placeholder="Price"><button class="save-btn" onclick="saveService(this)">Save ✓</button></div>
+              <div class="service-edit-card"><h4>💎 Hydrafacial</h4><input type="text" value="6-in-1 deep cleansing facial"><input type="text" value="₹3,500 onwards" placeholder="Price"><button class="save-btn" onclick="saveService(this)">Save ✓</button></div>
+              <div class="service-edit-card"><h4>🔬 GFC Hair Treatment</h4><input type="text" value="Growth Factor Concentrate therapy"><input type="text" value="₹4,500 per session" placeholder="Price"><button class="save-btn" onclick="saveService(this)">Save ✓</button></div>
+              <div class="service-edit-card"><h4>⚡ Laser Hair Removal</h4><input type="text" value="Permanent hair reduction treatment"><input type="text" value="₹1,500 per session" placeholder="Price"><button class="save-btn" onclick="saveService(this)">Save ✓</button></div>
+              <div class="service-edit-card"><h4>🩸 Leech Therapy</h4><input type="text" value="Natural hirudotherapy treatment"><input type="text" value="₹2,000 per session" placeholder="Price"><button class="save-btn" onclick="saveService(this)">Save ✓</button></div>
+              <div class="service-edit-card"><h4>💊 IV Drip Therapy</h4><input type="text" value="Vitamin C, Glutathione, NAD+ drips"><input type="text" value="₹3,500 onwards" placeholder="Price"><button class="save-btn" onclick="saveService(this)">Save ✓</button></div>
+              <div class="service-edit-card"><h4>🧪 Exosome Therapy</h4><input type="text" value="Cellular rejuvenation treatment"><input type="text" value="₹15,000 onwards" placeholder="Price"><button class="save-btn" onclick="saveService(this)">Save ✓</button></div>
+              <div class="add-service-card" onclick="addServiceCard()"><span style="font-size:2rem">➕</span><span>Add New Service</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GALLERY MANAGER -->
+        <div class="section" id="sec-gallery">
+          <div class="card">
+            <div class="card-header"><h3>🖼️ Gallery Manager</h3><button class="btn-add" onclick="showToast('📸 Upload feature — connect to backend to enable!')">➕ Add Photo</button></div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px">
+              <div style="border:1.5px solid #e5e7eb;border-radius:14px;overflow:hidden">
+                <div style="display:grid;grid-template-columns:1fr 1fr;height:120px">
+                  <div style="background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:2rem">😔</div>
+                  <div style="background:var(--pink-light);display:flex;align-items:center;justify-content:center;font-size:2rem">😊</div>
+                </div>
+                <div style="padding:12px">
+                  <p style="font-size:0.85rem;font-weight:600">Hydrafacial + Brightening</p>
+                  <p style="font-size:0.75rem;color:var(--grey)">Priya S. · 3 sessions</p>
+                  <button class="btn-sm btn-delete" style="margin-top:8px" onclick="showToast('🗑️ Photo removed')">Delete</button>
+                </div>
+              </div>
+              <div style="border:1.5px solid #e5e7eb;border-radius:14px;overflow:hidden">
+                <div style="display:grid;grid-template-columns:1fr 1fr;height:120px">
+                  <div style="background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:2rem">💇</div>
+                  <div style="background:var(--pink-light);display:flex;align-items:center;justify-content:center;font-size:2rem">👸</div>
+                </div>
+                <div style="padding:12px">
+                  <p style="font-size:0.85rem;font-weight:600">GFC Hair Treatment</p>
+                  <p style="font-size:0.75rem;color:var(--grey)">Rohit M. · 4 sessions</p>
+                  <button class="btn-sm btn-delete" style="margin-top:8px" onclick="showToast('🗑️ Photo removed')">Delete</button>
+                </div>
+              </div>
+              <div style="border:2px dashed #e5e7eb;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:32px;cursor:pointer;color:var(--grey)" onclick="showToast('📸 Upload feature — connect to backend to enable!')">
+                <span style="font-size:2rem">📷</span>
+                <span style="font-size:0.85rem;font-weight:600">Upload New Photo</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /content -->
+    </div><!-- /main -->
+  </div><!-- /layout -->
+</div><!-- /dashboard -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ---- DATE ----
+  const now = new Date();
+  document.getElementById('topbarDate').textContent = now.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+  const todayStr = now.toLocaleDateString('en-IN');
+
+  // ---- LOGIN ----
+  function doLogin() {
+    const u = document.getElementById('loginUser').value.trim();
+    const p = document.getElementById('loginPass').value.trim();
+    if(u === 'admin' && p === 'radiant2025') {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+      loadBookings();
+    } else {
+      document.getElementById('loginErr').style.display = 'block';
+    }
+  }
+
+  function doLogout() {
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('loginPass').value = '';
+  }
+
+  // ---- NAVIGATION ----
+  function showSection(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.sidebar-link').forEach(b => b.classList.remove('active'));
+    document.getElementById('sec-'+id).classList.add('active');
+    if(btn) btn.classList.add('active');
+    const titles = {overview:'Overview',appointments:'Appointments',leads:'Leads & Inquiries',services:'Services & Pricing',gallery:'Gallery Manager'};
+    document.getElementById('topbarTitle').textContent = titles[id] || id;
+    document.getElementById('sidebar').classList.remove('open');
+  }
+
+  // ---- LOAD BOOKINGS FROM LOCALSTORAGE ----
+  function loadBookings() {
+    const bookings = JSON.parse(localStorage.getItem('rg_bookings') || '[]');
+    const todayBookings = bookings.filter(b => b.date === now.toISOString().split('T')[0]);
+    const pending = bookings.filter(b => b.status === 'Pending');
+
+    document.getElementById('stat-today').textContent = todayBookings.length;
+    document.getElementById('stat-pending').textContent = pending.length;
+    document.getElementById('stat-total').textContent = bookings.length;
+
+    renderTodayTable(todayBookings);
+    renderApptTable(bookings);
+    renderLeadsTable(bookings);
+  }
+
+  function statusBadge(s) {
+    const map = {Pending:'badge-pending',Confirmed:'badge-confirmed',Done:'badge-done',Rescheduling:'badge-reschedule'};
+    return `<span class="badge ${map[s]||'badge-pending'}">${s}</span>`;
+  }
+
+  function renderTodayTable(data) {
+    const tb = document.getElementById('todayTable');
+    if(!data.length) { tb.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="icon">📋</div><p>No appointments today yet.</p></div></td></tr>'; return; }
+    tb.innerHTML = data.map((b,i) => `
+      <tr>
+        <td>${b.time}</td><td><strong>${b.name}</strong></td><td>${b.service}</td><td>${b.phone}</td>
+        <td>${statusBadge(b.status)}</td>
+        <td><div class="actions">
+          ${b.status==='Pending'?`<button class="btn-sm btn-confirm" onclick="updateStatus(${i},'Confirmed','today')">Confirm</button><button class="btn-sm btn-reschedule" onclick="updateStatus(${i},'Rescheduling','today')">Reschedule</button>`:''}
+          ${b.status==='Confirmed'?`<button class="btn-sm btn-done" onclick="updateStatus(${i},'Done','today')">✓ Done</button>`:''}
+        </div></td>
+      </tr>`).join('');
+  }
+
+  function renderApptTable(data) {
+    const tb = document.getElementById('apptTable');
+    if(!data.length) { tb.innerHTML = '<tr><td colspan="8"><div class="empty-state"><div class="icon">📅</div><p>No bookings yet.</p></div></td></tr>'; return; }
+    tb.innerHTML = data.map((b,i) => `
+      <tr>
+        <td>${b.created||b.date}</td><td>${b.time}</td><td><strong>${b.name}</strong></td>
+        <td>${b.phone}</td><td>${b.service}</td><td style="max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${b.notes||'—'}</td>
+        <td>${statusBadge(b.status)}</td>
+        <td><div class="actions">
+          ${b.status==='Pending'?`<button class="btn-sm btn-confirm" onclick="updateStatus(${i},'Confirmed','appt')">Confirm</button><button class="btn-sm btn-reschedule" onclick="updateStatus(${i},'Rescheduling','appt')">Reschedule</button>`:''}
+          ${b.status==='Confirmed'?`<button class="btn-sm btn-done" onclick="updateStatus(${i},'Done','appt')">✓ Done</button>`:''}
+          <button class="btn-sm btn-delete" onclick="deleteAppt(${i})">Delete</button>
+        </div></td>
+      </tr>`).join('');
+  }
+
+  function renderLeadsTable(data) {
+    const tb = document.getElementById('leadsTable');
+    // Static sample leads + dynamic bookings
+    const sampleLeads = [
+      {created:'1 Mar',name:'Priya Sharma',phone:'9876543210',email:'priya@gmail.com',service:'Hydrafacial',notes:'Wants glow before wedding'},
+      {created:'28 Feb',name:'Rohit Verma',phone:'9812345678',email:'rohit@gmail.com',service:'GFC Hair',notes:'Hair fall since 2 years'},
+      {created:'26 Feb',name:'Ananya Tiwari',phone:'9765432109',email:'ananya@gmail.com',service:'Botox',notes:'First time, nervous'},
+    ];
+    const allLeads = [...sampleLeads, ...data];
+    tb.innerHTML = allLeads.map(b => `
+      <tr>
+        <td>${b.created||'—'}</td><td><strong>${b.name}</strong></td><td>${b.phone}</td>
+        <td>${b.email||'—'}</td><td>${b.service}</td><td>${b.notes||'—'}</td>
+        <td><button class="btn-sm btn-confirm" onclick="showToast('✅ Lead followed up!')">Follow Up</button></td>
+      </tr>`).join('');
+  }
+
+  function updateStatus(idx, newStatus, context) {
+    const bookings = JSON.parse(localStorage.getItem('rg_bookings') || '[]');
+    if(bookings[idx]) { bookings[idx].status = newStatus; localStorage.setItem('rg_bookings', JSON.stringify(bookings)); }
+    loadBookings();
+    showToast(`✅ Marked as ${newStatus}`);
+  }
+
+  function deleteAppt(idx) {
+    const bookings = JSON.parse(localStorage.getItem('rg_bookings') || '[]');
+    bookings.splice(idx,1);
+    localStorage.setItem('rg_bookings', JSON.stringify(bookings));
+    loadBookings();
+    showToast('🗑️ Appointment deleted');
+  }
+
+  // ---- SERVICES ----
+  function addServiceCard() {
+    const grid = document.getElementById('serviceGrid');
+    const addBtn = grid.querySelector('.add-service-card');
+    const card = document.createElement('div');
+    card.className = 'service-edit-card';
+    card.innerHTML = `<h4>✨ New Service</h4><input type="text" placeholder="Service name & description"><input type="text" placeholder="Price (e.g. ₹2,000 onwards)"><button class="save-btn" onclick="saveService(this)">Save ✓</button>`;
+    grid.insertBefore(card, addBtn);
+    showToast('➕ New service card added!');
+  }
+
+  function saveService(btn) {
+    showToast('💾 Service saved!');
+    btn.textContent = 'Saved ✓'; btn.style.background = '#d1fae5'; btn.style.color = '#065f46';
+    setTimeout(() => { btn.textContent = 'Save ✓'; btn.style.background = ''; btn.style.color = ''; }, 2000);
+  }
+
+  // ---- EXPORT ----
+  function exportAppts() {
+    const bookings = JSON.parse(localStorage.getItem('rg_bookings') || '[]');
+    const rows = [['Date','Time','Name','Phone','Email','Service','Notes','Status'], ...bookings.map(b => [b.created||b.date,b.time,b.name,b.phone,b.email||'',b.service,b.notes||'',b.status])];
+    downloadCSV(rows, 'appointments.csv');
+  }
+
+  function exportLeads() {
+    const bookings = JSON.parse(localStorage.getItem('rg_bookings') || '[]');
+    const rows = [['Date','Name','Phone','Email','Service','Notes'], ...bookings.map(b => [b.created||b.date,b.name,b.phone,b.email||'',b.service,b.notes||''])];
+    downloadCSV(rows, 'leads.csv');
+  }
+
+  function downloadCSV(rows, filename) {
+    const csv = rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+    const a = document.createElement('a');
+    a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+    a.download = filename; a.click();
+    showToast('📥 ' + filename + ' downloaded!');
+  }
+
+  // ---- TOAST ----
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+</script>
+</body>
+</html>

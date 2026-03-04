@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Portal – Radiant Glow Clinic</title>
+<!-- No index for search engines -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body>
+
+<!-- ═══════════════ LOGIN PAGE ═══════════════ -->
+<div id="loginPage" class="login-page">
+  <div class="login-box">
+    <div class="login-logo">🔐</div>
+    <div class="admin-badge">ADMIN PORTAL</div>
+    <h2>Radiant Glow Clinic</h2>
+    <p>Secure staff access only. Unauthorised entry is prohibited.</p>
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" id="adminUser" placeholder="Enter username" autocomplete="username">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="adminPass" placeholder="Enter password" autocomplete="current-password">
+    </div>
+    <div class="error-msg" id="loginError"></div>
+    <button class="login-btn" onclick="adminLogin()">Login to Dashboard →</button>
+    <p class="login-hint">Default credentials: admin / radiant2025<br>Change these before going live.</p>
+  </div>
+</div>
+
+<!-- ═══════════════ DASHBOARD ═══════════════ -->
+<div id="dashboard" style="display:none">
+
+  <nav class="admin-nav">
+    <div class="admin-brand">
+      <div class="admin-brand-icon">✨</div>
+      <div class="admin-brand-text">Radiant <span>Glow</span> · Admin</div>
+    </div>
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-tab="overview"      onclick="switchTab('overview')">📊 Overview</button>
+      <button class="admin-tab"         data-tab="appointments" onclick="switchTab('appointments')">📅 Appointments</button>
+      <button class="admin-tab"         data-tab="services"     onclick="switchTab('services')">💆 Services</button>
+      <button class="admin-tab"         data-tab="leads"        onclick="switchTab('leads')">📋 Leads</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <span style="font-size:0.8rem;color:rgba(255,255,255,0.5)">Staff logged in</span>
+      <button class="logout-btn" onclick="adminLogout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="admin-body">
+
+    <!-- Mobile tabs -->
+    <div class="mobile-tabs">
+      <button class="admin-tab active" data-tab="overview"      onclick="switchTab('overview')">📊 Overview</button>
+      <button class="admin-tab"         data-tab="appointments" onclick="switchTab('appointments')">📅 Appointments</button>
+      <button class="admin-tab"         data-tab="services"     onclick="switchTab('services')">💆 Services</button>
+      <button class="admin-tab"         data-tab="leads"        onclick="switchTab('leads')">📋 Leads</button>
+    </div>
+
+    <!-- ── OVERVIEW ── -->
+    <div class="admin-section active" id="section-overview">
+      <p class="section-heading">Good morning! Here's today's snapshot 👋</p>
+      <div class="stats-grid">
+        <div class="stat-card pink"><div class="num" id="stat-today">4</div><p>Today's Appointments</p></div>
+        <div class="stat-card gold"><div class="num" id="stat-pending">5</div><p>Pending Confirmations</p></div>
+        <div class="stat-card green"><div class="num" id="stat-monthly">48</div><p>This Month's Clients</p></div>
+        <div class="stat-card blue"><div class="num">₹2.4L</div><p>Monthly Revenue</p></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><h3>📅 Today's Schedule</h3></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Time</th><th>Client</th><th>Service</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="todayTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── APPOINTMENTS ── -->
+    <div class="admin-section" id="section-appointments">
+      <div class="card">
+        <div class="card-header">
+          <h3>📅 All Upcoming Appointments</h3>
+          <button class="export-btn" onclick="exportAppointments()">⬇ Export CSV</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Date</th><th>Time</th><th>Client</th><th>Phone</th><th>Service</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="apptTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SERVICES ── -->
+    <div class="admin-section" id="section-services">
+      <div class="card">
+        <div class="card-header"><h3>💆 Manage Services & Pricing</h3></div>
+        <div class="services-manage-grid" id="serviceGrid">
+          <div class="service-manage-card"><h4>💉 Botox</h4><input type="text" value="Wrinkle reduction injection treatment"><input type="text" value="₹8,000 onwards" placeholder="Price"><button class="save-btn" onclick="saveService(this)">Save ✓</button></div>
+          <div class="service-manage-card"><h4>🌸 Dermal Fillers</h4><input type="text" value="Lip & face filler augmentation"><input type="text" value="₹12,000 onwards" placeholder="Price"><button class="save-btn" onclick="saveService(this)">Save ✓</button></div>
+          <div class="service-manage-card"><h4>💎 Hydrafacial</h4><input type="text" value="6-in-1 deep cleansing facial"><input type="text" value="₹3,500 onwards" placeholder="Price"><button class="save-btn" onclick="saveService(this)">Save ✓</button></div>
+          <div class="service-manage-card"><h4>🔬 GFC Hair Treatment</h4><input type="text" value="Growth Factor Concentrate therapy"><input type="text" value="₹4,500 per session" placeholder="Price"><button class="save-btn" onclick="saveService(this)">Save ✓</button></div>
+          <div class="service-manage-card"><h4>⚡ Laser Hair Removal</h4><input type="text" value="Permanent hair reduction treatment"><input type="text" value="₹1,500 per session" placeholder="Price"><button class="save-btn" onclick="saveService(this)">Save ✓</button></div>
+          <div class="service-manage-card"><h4>🩸 Leech Therapy</h4><input type="text" value="Natural hirudotherapy treatment"><input type="text" value="₹2,000 per session" placeholder="Price"><button class="save-btn" onclick="saveService(this)">Save ✓</button></div>
+          <div class="service-manage-card"><h4>💊 IV Drip Therapy</h4><input type="text" value="Vitamin C, Glutathione & custom drips"><input type="text" value="₹3,500 onwards" placeholder="Price"><button class="save-btn" onclick="saveService(this)">Save ✓</button></div>
+          <div class="service-manage-card"><h4>🧪 Exosome Therapy</h4><input type="text" value="Next-gen cellular rejuvenation"><input type="text" value="₹15,000 onwards" placeholder="Price"><button class="save-btn" onclick="saveService(this)">Save ✓</button></div>
+          <div class="add-service-card" id="addServiceCard" onclick="addService()"><span>➕</span> Add New Service</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── LEADS ── -->
+    <div class="admin-section" id="section-leads">
+      <div class="card">
+        <div class="card-header">
+          <h3>📋 Customer Inquiries & Leads</h3>
+          <button class="export-btn" onclick="exportLeads()">⬇ Export CSV</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Date</th><th>Name</th><th>Phone</th><th>Email</th><th>Service Interest</th><th>Notes</th></tr></thead>
+            <tbody id="leadsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="../assets/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radiant Glow Clinic – Lucknow | Premium Skin & Hair Treatments</title>
+<meta name="description" content="Lucknow's premier aesthetic clinic for Botox, Fillers, GFC Hair Treatment, Hydrafacial, Laser Hair Removal & more. Gomti Nagar / Chinhat.">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<nav id="mainNav">
+  <a class="logo" href="#" onclick="showPage('home')">
+    <div class="logo-icon">✨</div>
+    <div class="logo-text">Radiant Glow<span>Aesthetic Clinic · Lucknow</span></div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#" onclick="showPage('home')">Home</a></li>
+    <li><a href="#" onclick="showPage('services')">Services</a></li>
+    <li><a href="#" onclick="showPage('gallery')">Gallery</a></li>
+    <li><a href="#" onclick="showPage('booking')">Book Appointment</a></li>
+    <li><a href="#" onclick="showPage('location')">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#" onclick="showPage('booking')">Book Now</a>
+  <div class="hamburger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HOME -->
+<div id="home-page" class="page active">
+  <div class="hero">
+    <div class="hero-badge">✨ Lucknow's Premium Aesthetic Clinic</div>
+    <h1>Unveil Your <span>True Beauty,</span><br>Inside and Out!</h1>
+    <p class="hero-tagline">Advanced skin, hair & aesthetic treatments by certified experts. Experience luxury skincare in the heart of Lucknow.</p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="#" onclick="showPage('booking')">📅 Book Appointment</a>
+      <a class="btn-secondary" href="#" onclick="showPage('services')">Explore Services →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">2000+</div><div class="stat-label">Happy Clients</div></div>
+      <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Treatments</div></div>
+      <div class="stat"><div class="stat-num">5★</div><div class="stat-label">Rated Clinic</div></div>
+      <div class="stat"><div class="stat-num">8+</div><div class="stat-label">Years Experience</div></div>
+    </div>
+    <div class="floating-card card1"><div class="fc-icon">💆</div><div>Next slot: <strong>Today 3 PM</strong></div></div>
+    <div class="floating-card card2"><div class="fc-icon">⭐</div><div>"Amazing results!" – <strong>Priya S.</strong></div></div>
+  </div>
+  <section style="background:#fff">
+    <div class="section-header">
+      <div class="section-tag">Our Specialties</div>
+      <h2 class="section-title">Treatments We Excel In</h2>
+      <p class="section-subtitle">From advanced skin rejuvenation to hair restoration — all under one roof.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card" onclick="showPage('booking')"><div class="service-icon">💉</div><span class="service-tag tag-skin">Skin</span><h3>Botox & Fillers</h3><p>Natural-looking wrinkle reduction & face contouring with premium injectables.</p><span class="service-price">Starting ₹8,000</span></div>
+      <div class="service-card" onclick="showPage('booking')"><div class="service-icon">🔬</div><span class="service-tag tag-hair">Hair</span><h3>GFC Hair Treatment</h3><p>Growth Factor Concentrate — latest science for hair regrowth & density.</p><span class="service-price">Starting ₹4,500</span></div>
+      <div class="service-card" onclick="showPage('booking')"><div class="service-icon">💎</div><span class="service-tag tag-skin">Skin</span><h3>Hydrafacial</h3><p>Deep cleansing, exfoliation & hydration. Instant glow, zero downtime.</p><span class="service-price">Starting ₹3,500</span></div>
+      <div class="service-card" onclick="showPage('booking')"><div class="service-icon">⚡</div><span class="service-tag tag-body">Body</span><h3>Laser Hair Removal</h3><p>Permanent hair reduction with advanced laser. Safe for all skin types.</p><span class="service-price">Starting ₹1,500</span></div>
+    </div>
+    <div style="text-align:center;margin-top:36px"><a class="btn-primary" href="#" onclick="showPage('services')">View All Services →</a></div>
+  </section>
+  <section style="background:var(--grey-light)">
+    <div class="section-header"><div class="section-tag">Why Radiant Glow</div><h2 class="section-title">Your Beauty, Our Priority</h2></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px">
+      <div style="background:#fff;border-radius:20px;padding:28px 24px;text-align:center;box-shadow:var(--shadow)"><div style="font-size:2.5rem;margin-bottom:12px">🩺</div><h3 style="font-size:1rem;font-weight:700;margin-bottom:8px">Certified Dermatologist</h3><p style="font-size:0.83rem;color:var(--grey);line-height:1.6">All treatments by qualified medical professionals</p></div>
+      <div style="background:#fff;border-radius:20px;padding:28px 24px;text-align:center;box-shadow:var(--shadow)"><div style="font-size:2.5rem;margin-bottom:12px">🏆</div><h3 style="font-size:1rem;font-weight:700;margin-bottom:8px">Premium Products</h3><p style="font-size:0.83rem;color:var(--grey);line-height:1.6">FDA-approved, internationally certified products only</p></div>
+      <div style="background:#fff;border-radius:20px;padding:28px 24px;text-align:center;box-shadow:var(--shadow)"><div style="font-size:2.5rem;margin-bottom:12px">💝</div><h3 style="font-size:1rem;font-weight:700;margin-bottom:8px">Personalized Care</h3><p style="font-size:0.83rem;color:var(--grey);line-height:1.6">Custom treatment plans for your skin type and goals</p></div>
+      <div style="background:#fff;border-radius:20px;padding:28px 24px;text-align:center;box-shadow:var(--shadow)"><div style="font-size:2.5rem;margin-bottom:12px">📱</div><h3 style="font-size:1rem;font-weight:700;margin-bottom:8px">Easy Booking</h3><p style="font-size:0.83rem;color:var(--grey);line-height:1.6">Book online in 60 seconds or WhatsApp anytime</p></div>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-logo">Radiant <span>Glow</span> Clinic</div>
+    <p>Lucknow's premier aesthetic destination. Chinhat | Gomti Nagar, Lucknow, UP</p>
+    <div class="footer-links">
+      <a href="#" onclick="showPage('home')">Home</a><a href="#" onclick="showPage('services')">Services</a>
+      <a href="#" onclick="showPage('gallery')">Gallery</a><a href="#" onclick="showPage('booking')">Book Appointment</a>
+      <a href="#" onclick="showPage('location')">Contact</a>
+    </div>
+    <div class="footer-bottom">© 2025 Radiant Glow Clinic. All rights reserved. | Lucknow, Uttar Pradesh</div>
+  </footer>
+</div>
+
+<!-- SERVICES -->
+<div id="services-page" class="page">
+  <section style="padding-top:100px;background:var(--grey-light)">
+    <div class="section-header"><div class="section-tag">Our Services</div><h2 class="section-title">Complete Aesthetic Solutions</h2><p class="section-subtitle">State-of-the-art treatments for skin, hair, body & advanced therapies.</p></div>
+    <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:20px;color:var(--pink-deep)">✨ Skin Treatments</h3>
+    <div class="services-grid" style="margin-bottom:48px">
+      <div class="service-card"><div class="service-icon">💉</div><span class="service-tag tag-skin">Skin</span><h3>Botox</h3><p>Reduce fine lines, crow's feet and forehead wrinkles. Natural look, long-lasting results.</p><span class="service-price">₹8,000 onwards</span></div>
+      <div class="service-card"><div class="service-icon">🌸</div><span class="service-tag tag-skin">Skin</span><h3>Dermal Fillers</h3><p>Lip augmentation, cheek contouring, under-eye hollows — restore youthful volume instantly.</p><span class="service-price">₹12,000 onwards</span></div>
+      <div class="service-card"><div class="service-icon">💎</div><span class="service-tag tag-skin">Skin</span><h3>Hydrafacial</h3><p>6-in-1 cleansing, exfoliation, extraction, hydration, antioxidants & LED therapy.</p><span class="service-price">₹3,500 onwards</span></div>
+      <div class="service-card"><div class="service-icon">🔆</div><span class="service-tag tag-skin">Skin</span><h3>Chemical Peels</h3><p>Lighten pigmentation, acne marks & dull skin with medical-grade customized peels.</p><span class="service-price">₹1,800 onwards</span></div>
+      <div class="service-card"><div class="service-icon">🌟</div><span class="service-tag tag-skin">Skin</span><h3>Microneedling / PRP</h3><p>Stimulate collagen with PRP for skin rejuvenation, acne scars & anti-aging.</p><span class="service-price">₹4,000 onwards</span></div>
+      <div class="service-card"><div class="service-icon">☀️</div><span class="service-tag tag-skin">Skin</span><h3>Skin Brightening</h3><p>Glutathione IV, mesotherapy & brightening facials for radiant, even-toned skin.</p><span class="service-price">₹2,500 onwards</span></div>
+    </div>
+    <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:20px;color:#2d8a4e">🌿 Hair Treatments</h3>
+    <div class="services-grid" style="margin-bottom:48px">
+      <div class="service-card"><div class="service-icon">🔬</div><span class="service-tag tag-hair">Hair</span><h3>GFC Hair Treatment</h3><p>Growth Factor Concentrate — latest science for hair density, regrowth & reducing hair fall.</p><span class="service-price">₹4,500 onwards</span></div>
+      <div class="service-card"><div class="service-icon">💧</div><span class="service-tag tag-hair">Hair</span><h3>PRP Hair Therapy</h3><p>Blood-derived growth factors injected into scalp to stimulate dormant follicles.</p><span class="service-price">₹3,500 onwards</span></div>
+      <div class="service-card"><div class="service-icon">🌱</div><span class="service-tag tag-hair">Hair</span><h3>Mesotherapy</h3><p>Direct nutrient injection for stronger, thicker hair roots and scalp health.</p><span class="service-price">₹2,500 onwards</span></div>
+      <div class="service-card"><div class="service-icon">⚡</div><span class="service-tag tag-hair">Hair</span><h3>Laser Hair Removal</h3><p>Permanent reduction for face, underarms, legs, bikini line. Safe & effective.</p><span class="service-price">₹1,500 per session</span></div>
+    </div>
+    <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:20px;color:#4a6cf7">💆 Body Treatments</h3>
+    <div class="services-grid" style="margin-bottom:48px">
+      <div class="service-card"><div class="service-icon">🎯</div><span class="service-tag tag-body">Body</span><h3>Body Contouring</h3><p>Non-surgical fat reduction with RF, ultrasound & cavitation. No surgery required.</p><span class="service-price">₹3,000 per session</span></div>
+      <div class="service-card"><div class="service-icon">🌊</div><span class="service-tag tag-body">Body</span><h3>Anti-Cellulite Therapy</h3><p>Targeted treatment for stubborn cellulite on thighs, hips & abdomen.</p><span class="service-price">₹2,500 per session</span></div>
+      <div class="service-card"><div class="service-icon">✋</div><span class="service-tag tag-body">Body</span><h3>Cupping Therapy</h3><p>Improves circulation, relieves muscle tension & detoxifies the body.</p><span class="service-price">₹1,500 per session</span></div>
+    </div>
+    <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:20px;color:#7c3aed">🧬 Advanced Therapies</h3>
+    <div class="services-grid">
+      <div class="service-card"><div class="service-icon">🩸</div><span class="service-tag tag-advanced">Advanced</span><h3>Leech Therapy</h3><p>Natural hirudotherapy for skin glow, dark circles, acne & anti-aging.</p><span class="service-price">₹2,000 per session</span></div>
+      <div class="service-card"><div class="service-icon">💊</div><span class="service-tag tag-advanced">Advanced</span><h3>IV Drip Therapy</h3><p>Vitamin C, Glutathione, NAD+ & custom drips for skin, energy & immunity.</p><span class="service-price">₹3,500 onwards</span></div>
+      <div class="service-card"><div class="service-icon">🧪</div><span class="service-tag tag-advanced">Advanced</span><h3>Exosome Therapy</h3><p>Cutting-edge cellular rejuvenation for skin & hair using exosome technology.</p><span class="service-price">₹15,000 onwards</span></div>
+    </div>
+    <div style="text-align:center;margin-top:48px"><a class="btn-primary" href="#" onclick="showPage('booking')">📅 Book Any Treatment</a></div>
+  </section>
+  <footer><div class="footer-logo">Radiant <span>Glow</span> Clinic</div><p>Premium aesthetic treatments in Lucknow</p><div class="footer-links"><a href="#" onclick="showPage('home')">Home</a><a href="#" onclick="showPage('booking')">Book Now</a></div><div class="footer-bottom">© 2025 Radiant Glow Clinic.</div></footer>
+</div>
+
+<!-- GALLERY -->
+<div id="gallery-page" class="page">
+  <section style="padding-top:100px;background:var(--grey-light)">
+    <div class="section-header"><div class="section-tag">Results Gallery</div><h2 class="section-title">Real Results, Real People</h2><p class="section-subtitle">Before & after photos from our happy patients in Lucknow.</p></div>
+    <div class="gallery-grid">
+      <div class="gallery-card"><div class="gallery-img"><div class="before-img"><span style="font-size:3rem">😔</span></div><div class="after-img"><span style="font-size:3rem">😊</span></div></div><div class="gallery-info"><h4>Hydrafacial + Brightening</h4><p>Priya S. · 3 sessions</p><div class="star-rating">★★★★★</div></div></div>
+      <div class="gallery-card"><div class="gallery-img"><div class="before-img"><span style="font-size:3rem">💇</span></div><div class="after-img"><span style="font-size:3rem">👸</span></div></div><div class="gallery-info"><h4>GFC Hair Treatment</h4><p>Rohit M. · 4 sessions</p><div class="star-rating">★★★★★</div></div></div>
+      <div class="gallery-card"><div class="gallery-img"><div class="before-img"><span style="font-size:3rem">😞</span></div><div class="after-img"><span style="font-size:3rem">✨</span></div></div><div class="gallery-info"><h4>Botox + Lip Fillers</h4><p>Neha K. · 1 session</p><div class="star-rating">★★★★★</div></div></div>
+      <div class="gallery-card"><div class="gallery-img"><div class="before-img"><span style="font-size:3rem">🙁</span></div><div class="after-img"><span style="font-size:3rem">😍</span></div></div><div class="gallery-info"><h4>Chemical Peel (Acne Scars)</h4><p>Ananya T. · 6 sessions</p><div class="star-rating">★★★★★</div></div></div>
+      <div class="gallery-card"><div class="gallery-img"><div class="before-img"><span style="font-size:3rem">😐</span></div><div class="after-img"><span style="font-size:3rem">💃</span></div></div><div class="gallery-info"><h4>Body Contouring</h4><p>Sunita R. · 8 sessions</p><div class="star-rating">★★★★★</div></div></div>
+      <div class="gallery-card"><div class="gallery-img"><div class="before-img"><span style="font-size:3rem">😶</span></div><div class="after-img"><span style="font-size:3rem">🌟</span></div></div><div class="gallery-info"><h4>PRP Skin Rejuvenation</h4><p>Meera G. · 3 sessions</p><div class="star-rating">★★★★★</div></div></div>
+    </div>
+    <div style="text-align:center;margin-top:48px;padding:32px;background:#fff;border-radius:20px;box-shadow:var(--shadow)">
+      <p style="font-size:1.1rem;color:var(--grey);margin-bottom:16px">📸 Follow us on Instagram for daily transformations!</p>
+      <a class="btn-primary" href="https://instagram.com" target="_blank">@RadiantGlowLucknow</a>
+    </div>
+  </section>
+  <footer><div class="footer-logo">Radiant <span>Glow</span> Clinic</div><p>Real results from real clients</p><div class="footer-links"><a href="#" onclick="showPage('home')">Home</a><a href="#" onclick="showPage('booking')">Book Now</a></div><div class="footer-bottom">© 2025 Radiant Glow Clinic.</div></footer>
+</div>
+
+<!-- BOOKING -->
+<div id="booking-page" class="page">
+  <section style="padding-top:100px;background:linear-gradient(135deg,#fff5f8,#fff9ec)">
+    <div class="section-header"><div class="section-tag">Book Appointment</div><h2 class="section-title">Schedule Your Consultation</h2><p class="section-subtitle">Book in 60 seconds. We'll confirm via WhatsApp within 30 minutes.</p></div>
+    <div class="booking-wrapper">
+      <div class="booking-info">
+        <h2>Visit Us or Book Online</h2>
+        <p>Our team will confirm your appointment quickly. First consultation is <strong>free!</strong></p>
+        <div class="contact-item"><div class="contact-icon">📍</div><a href="#">Chinhat / Gomti Nagar, Lucknow, UP 226010</a></div>
+        <div class="contact-item"><div class="contact-icon">📞</div><a href="tel:+919876543210">+91 98765 43210</a></div>
+        <div class="contact-item"><div class="contact-icon">✉️</div><a href="mailto:hello@radiantglowlko.com">hello@radiantglowlko.com</a></div>
+        <div class="contact-item"><div class="contact-icon">🕐</div><a href="#">Mon–Sat: 10 AM – 7 PM | Sun: By Appointment</a></div>
+        <a class="whatsapp-btn" href="https://wa.me/919876543210" target="_blank"><span>💬</span> WhatsApp Us Directly</a>
+      </div>
+      <div class="booking-form">
+        <div class="form-title">📅 Book Your Appointment</div>
+        <div class="form-group"><label>Full Name *</label><input type="text" id="clientName" placeholder="Your full name"></div>
+        <div class="form-row">
+          <div class="form-group"><label>Phone Number *</label><input type="tel" id="clientPhone" placeholder="+91 XXXXX XXXXX"></div>
+          <div class="form-group"><label>Email</label><input type="email" id="clientEmail" placeholder="your@email.com"></div>
+        </div>
+        <div class="form-group">
+          <label>Select Service *</label>
+          <select id="serviceSelect">
+            <option value="">-- Choose a Service --</option>
+            <optgroup label="Skin Treatments"><option>Botox</option><option>Dermal Fillers</option><option>Hydrafacial</option><option>Chemical Peel</option><option>Microneedling / PRP</option><option>Skin Brightening</option></optgroup>
+            <optgroup label="Hair Treatments"><option>GFC Hair Treatment</option><option>PRP Hair Therapy</option><option>Mesotherapy (Hair)</option><option>Laser Hair Removal</option></optgroup>
+            <optgroup label="Body Treatments"><option>Body Contouring</option><option>Anti-Cellulite Therapy</option><option>Cupping Therapy</option></optgroup>
+            <optgroup label="Advanced Therapies"><option>Leech Therapy</option><option>IV Drip Therapy</option><option>Exosome Therapy</option></optgroup>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Preferred Date *</label><input type="date" id="apptDate"></div>
+          <div class="form-group"><label>Preferred Time *</label><select id="apptTime"><option value="">-- Select Time --</option><option>10:00 AM</option><option>10:30 AM</option><option>11:00 AM</option><option>11:30 AM</option><option>12:00 PM</option><option>2:00 PM</option><option>2:30 PM</option><option>3:00 PM</option><option>3:30 PM</option><option>4:00 PM</option><option>5:00 PM</option><option>6:00 PM</option></select></div>
+        </div>
+        <div class="form-group"><label>Additional Notes</label><textarea id="apptNotes" rows="3" placeholder="Any concerns, allergies, or questions..."></textarea></div>
+        <button class="submit-btn" onclick="submitBooking()">Confirm Appointment ✨</button>
+        <div class="success-msg" id="bookingSuccess">✅ Appointment booked! We'll confirm via WhatsApp within 30 mins.</div>
+      </div>
+    </div>
+  </section>
+  <footer><div class="footer-logo">Radiant <span>Glow</span> Clinic</div><p>Book your transformation today</p><div class="footer-links"><a href="#" onclick="showPage('home')">Home</a><a href="#" onclick="showPage('services')">Services</a></div><div class="footer-bottom">© 2025 Radiant Glow Clinic.</div></footer>
+</div>
+
+<!-- LOCATION -->
+<div id="location-page" class="page">
+  <section style="padding-top:100px;background:var(--grey-light)">
+    <div class="section-header"><div class="section-tag">Location & Contact</div><h2 class="section-title">Find Us in Lucknow</h2><p class="section-subtitle">Conveniently located in Chinhat / Gomti Nagar. Easy parking available.</p></div>
+    <div class="location-wrapper">
+      <div>
+        <div class="map-container">
+          <div class="map-pin">📍</div>
+          <strong style="font-size:1rem">Radiant Glow Clinic</strong>
+          <p class="map-text">Chinhat / Gomti Nagar, Lucknow UP 226010</p>
+          <a class="map-link" href="https://maps.google.com/?q=Gomti+Nagar+Lucknow" target="_blank">Open in Google Maps 🗺️</a>
+        </div>
+      </div>
+      <div class="location-info">
+        <h3>Contact & Hours</h3>
+        <div class="info-item"><div class="info-icon">📍</div><div><h4>Clinic Address</h4><p>Radiant Glow Clinic, Chinhat / Gomti Nagar<br>Lucknow, Uttar Pradesh – 226010</p></div></div>
+        <div class="info-item"><div class="info-icon">📞</div><div><h4>Phone & WhatsApp</h4><p>+91 98765 43210 · Available 9 AM – 8 PM</p></div></div>
+        <div class="info-item"><div class="info-icon">✉️</div><div><h4>Email</h4><p>hello@radiantglowlko.com</p></div></div>
+        <div class="info-item"><div class="info-icon">🕐</div><div><h4>Working Hours</h4><p>Monday – Saturday: 10:00 AM – 7:00 PM<br>Sunday: By Appointment Only</p></div></div>
+        <a class="whatsapp-btn" href="https://wa.me/919876543210" target="_blank"><span style="font-size:1.3rem">💬</span> Chat on WhatsApp</a>
+      </div>
+    </div>
+  </section>
+  <footer><div class="footer-logo">Radiant <span>Glow</span> Clinic</div><p>Lucknow's trusted aesthetic clinic</p><div class="footer-links"><a href="#" onclick="showPage('home')">Home</a><a href="#" onclick="showPage('booking')">Book Now</a></div><div class="footer-bottom">© 2025 Radiant Glow Clinic.</div></footer>
+</div>
+
+<a class="whatsapp-float" href="https://wa.me/919876543210" target="_blank" title="WhatsApp">💬</a>
+<div class="toast" id="toast"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
