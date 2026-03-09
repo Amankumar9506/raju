@@ -25,7 +25,7 @@ radiant-glow-clinic/
 
 | Page              | URL                                 |
 |-------------------|-------------------------------------|
-| Home              | https://radiantglow.com           |
+| Home              | https://yourdomain.com/|
 | Admin Portal      | https://yourdomain.com/admin/       |
 
 Admin URL is completely separate — not linked anywhere on the main website.
